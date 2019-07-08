@@ -92,12 +92,12 @@ public class Staff {
 		this.email = email;
 	}
 
-	public Date getRegisteredTime() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setRegisteredTime(Date registeredTime) {
-		this.createDate = registeredTime;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	@Override
