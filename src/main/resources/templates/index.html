@@ -1,73 +1,60 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	class="h-100">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-	<link href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
-		th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
-	<title th:text="${title}"></title>
-
-	<style>
-	.bd-placeholder-img {
-		font-size: 1.125rem;
-		text-anchor: middle;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-	}
-	
-	@media ( min-width : 768px) {
-		.bd-placeholder-img-lg {
-			font-size: 3.5rem;
-		}
-	}
-	</style>
-	
-	<!-- Custom styles for this template -->
-    <link href="css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet">
-</head>
+<head th:include="fragments/headFragment :: head"></head>
 <body class="d-flex flex-column h-100">
-	<header>
-		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-		    <a class="navbar-brand" href="#">Personel Bilgi Sistemi</a>
-		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-		      <span class="navbar-toggler-icon"></span>
-		    </button>
-		    <div class="collapse navbar-collapse" id="navbarCollapse">
-		      <ul class="navbar-nav mr-auto">
-		        <li class="nav-item active">
-		        	<!-- 
-		        	<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-		        	 -->
-		        </li>
-		      </ul>
-		    </div>
-		  </nav>
-	</header>
+	<header th:replace="fragments/topMenuFragment :: topMenu"></header>
 	
 	<!-- Begin page content -->
 	<main role="main" class="flex-shrink-0">
 	  <div class="container">
-	    <h3 class="mt-5">Personel Listesi</h3>
-	    	
+	    
+	    <div class="mt-4 mb-2 row justify-content-between">
+	    	<div class="col-sm-3 text-left">
+	    		<h4>Personel Listesi</h4>
+	    	</div>
+	    	<div class="col-sm-3 text-right">
+	    		<button type="button" class="btn btn-outline-dark">Personel Ekle</button>
+	    	</div>
+	    </div>
+	    <div class="row">	
+		    <table class="table">
+		    	<thead class="thead-dark">
+		    		<tr>
+		    			<th scope="col">No</th>
+			    		<th scope="col">Ad</th>
+			    		<th scope="col">Soyad</th>
+			    		<th scope="col">Telefon</th>
+			    		<th scope="col">E-mail</th>
+			    		<th scope="col">Kayıt Zamanı</th>
+			    		<th scope="col" style="width: 165px;">İşlemler</th>
+		    		</tr>
+		    	</thead> 
+		    	<tbody>
+		    		<tr th:if="${staffList == null}">
+		    			<td colspan="5">Personel Bulunamadı</td>
+		    		</tr>
+		    		<tr th:each="staff : ${staffList}">
+		    			<th scope="row" th:text="${staff.id}"></th>
+		    			<td th:text="${staff.firstName}"></td>
+		    			<td th:text="${staff.lastName}"></td>
+		    			<td th:text="${staff.phone}"></td>
+		    			<td th:text="${staff.email}"></td>
+		    			<td th:text="${#dates.format(staff.createDate, 'dd-MM-yyy HH:mm:ss')}"></td>
+		    			<td>
+		    				<button type="button" class="btn btn-outline-dark">Güncelle</button>
+		    				<button type="button" class="btn btn-outline-dark">Sil</button>
+		    			</td>
+		    		</tr>
+		    	</tbody>
+		    </table>
+	    </div>
 	  </div>
 	</main>
 	
-	<footer class="footer mt-auto py-3">
-	  <div class="container">
-	    <span class="text-muted"></span>
-	  </div>
-	</footer>
-
-	<script src="/webjars/jquery/3.4.1/jquery.min.js"
-		th:href="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"
-		th:href="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script> 
-
+	<footer th:replace="fragments/footerFragment :: footer"></footer>
+	
+	<th:block th:include="fragments/scriptsFragment :: scripts" />
 </body>
-
 </html>
