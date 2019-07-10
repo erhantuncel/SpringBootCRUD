@@ -1,0 +1,63 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	class="h-100">
+<head th:include="fragments/headFragment :: head"></head>
+<body class="d-flex flex-column h-100">
+	<header th:replace="fragments/topMenuFragment :: topMenu"></header>
+	
+	<!-- Begin page content -->
+	<main role="main" class="flex-shrink-0">
+	  <div class="container">
+	    
+	    <div class="mt-4 mb-2 row justify-content-between">
+	    	<div class="col-sm-3 text-left">
+	    		<h4>Personel Kayıt</h4>
+	    	</div>
+	    	<div class="col-sm-3 text-right">
+	    	</div>
+	    </div>
+	    <form action="#" th:object="${staffObject}">
+		    	<div class="form-row">
+		    		<div class="col-md-6 mb-3">
+		    			<label for="firstName">Ad</label>
+		    			<input type="text" class="form-control" id="firstName" placeholder="Ad">
+		    			<div class="invalid-feedback">
+        					Ad boş olmamalı
+      					</div>
+		    		</div>
+		    		<div class="col-md-6 mb-3">
+		    			<label for="lastName">Soyad</label>
+		    			<input type="text" class="form-control" id="lastName" placeholder="Soyad">
+		    			<div class="invalid-feedback">
+        					Soyad boş olmamalı
+      					</div>
+		    		</div>
+		    	</div>
+		    	<div class="form-row">
+		    		<div class="col-md-6 mb-3">
+		    			<label for="phone">Telefon</label>
+		    			<input type="text" class="form-control" id="phone" placeholder="Telefon">
+		    			<div class="invalid-feedback">
+        					Telefon boş olmamalı
+      					</div>
+		    		</div>
+		    		<div class="col-md-6 mb-3">
+		    			<label for="email">E-mail</label>
+		    			<input type="text" class="form-control" id="email" placeholder="E-mail">
+		    			<div class="invalid-feedback">
+        					Geçerli bir e-mail adresi girilmeli.
+      					</div>
+		    		</div>
+		    	</div>
+		    	<button class="btn btn-dark" type="submit">Personel Ekle</button>
+		    </form>
+	    
+	  </div>
+	</main>
+	
+	<footer th:replace="fragments/footerFragment :: footer"></footer>
+	
+	<th:block th:include="fragments/scriptsFragment :: scripts" />
+</body>
+</html>
