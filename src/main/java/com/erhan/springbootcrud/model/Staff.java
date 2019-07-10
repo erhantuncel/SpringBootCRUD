@@ -9,7 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 
 @Entity
 public class Staff {
@@ -18,22 +22,23 @@ public class Staff {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
 	
-	@NotNull
+	@NotEmpty
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 	
-	@NotNull
+	@NotEmpty
 	@Column(name = "LAST_NAME")
 	private String lastName;
 	
-	@NotNull
+	@NotEmpty
+	@Pattern(regexp="[0-9]{10}", message = "10 haneli ve rakamlardan oluşmalı.")
 	@Column(name = "PHONE")
 	private String phone;
 	
+	@Email
 	@Column(name = "EMAIL")
 	private String email;
 	
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATE_DATE")
 	private Date createDate;

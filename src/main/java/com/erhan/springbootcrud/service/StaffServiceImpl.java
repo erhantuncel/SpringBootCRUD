@@ -19,6 +19,7 @@ public class StaffServiceImpl implements StaffService {
 	
 	@Override
 	public void create(Staff staff) {
+		staff.setCreateDate(new Date());
 		staffDAO.save(staff);
 	}
 	

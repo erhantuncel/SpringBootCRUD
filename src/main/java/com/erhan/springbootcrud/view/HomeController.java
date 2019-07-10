@@ -13,12 +13,12 @@ import com.erhan.springbootcrud.service.StaffService;
 
 @Controller
 public class HomeController {
-
+	
 	@Autowired
 	StaffService staffService;
 	
 	@RequestMapping(value = "/")
-	public ModelAndView getIndexPage(ModelAndView model) {
+	public ModelAndView showIndexPage(ModelAndView model) {
 		String title = "Personel Bilgi Sistemi";
 		
 		List<Staff> staffList = staffService.findAll();
@@ -33,7 +33,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/{page}")
-	public ModelAndView getPage(@PathVariable String page, ModelAndView model) {
+	public ModelAndView showPage(@PathVariable String page, ModelAndView model) {
 		model.setViewName(page);
 		return model;
 	}

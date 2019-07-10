@@ -17,19 +17,21 @@
 	    	<div class="col-sm-3 text-right">
 	    	</div>
 	    </div>
-	    <form action="#" th:object="${staffObject}">
+	    <form action="#" th:object="${staff}" th:action="@{/addStaff}" method="post">
 		    	<div class="form-row">
 		    		<div class="col-md-6 mb-3">
 		    			<label for="firstName">Ad</label>
-		    			<input type="text" class="form-control" id="firstName" placeholder="Ad">
-		    			<div class="invalid-feedback">
+		    			<input type="text" class="form-control" id="firstName" placeholder="Ad" 
+		    				th:field="*{firstName}" th:errorclass="is-invalid">
+		    			<div class="invalid-feedback" th:errors="*{firstName}">
         					Ad boş olmamalı
       					</div>
 		    		</div>
 		    		<div class="col-md-6 mb-3">
 		    			<label for="lastName">Soyad</label>
-		    			<input type="text" class="form-control" id="lastName" placeholder="Soyad">
-		    			<div class="invalid-feedback">
+		    			<input type="text" class="form-control" id="lastName" placeholder="Soyad" 
+		    				th:field="*{lastName}" th:errorclass="is-invalid">
+		    			<div class="invalid-feedback" th:errors="*{lastName}">
         					Soyad boş olmamalı
       					</div>
 		    		</div>
@@ -37,15 +39,17 @@
 		    	<div class="form-row">
 		    		<div class="col-md-6 mb-3">
 		    			<label for="phone">Telefon</label>
-		    			<input type="text" class="form-control" id="phone" placeholder="Telefon">
-		    			<div class="invalid-feedback">
+		    			<input type="text" class="form-control" id="phone" placeholder="Telefon" 
+		    				th:field="*{phone}" th:errorclass="is-invalid">
+		    			<div class="invalid-feedback" th:errors="*{phone}">
         					Telefon boş olmamalı
       					</div>
 		    		</div>
 		    		<div class="col-md-6 mb-3">
 		    			<label for="email">E-mail</label>
-		    			<input type="text" class="form-control" id="email" placeholder="E-mail">
-		    			<div class="invalid-feedback">
+		    			<input type="text" class="form-control" id="email" placeholder="E-mail" 
+		    				th:field="*{email}" th:errorclass="is-invalid">
+		    			<div class="invalid-feedback" th:errors="*{email}">
         					Geçerli bir e-mail adresi girilmeli.
       					</div>
 		    		</div>
