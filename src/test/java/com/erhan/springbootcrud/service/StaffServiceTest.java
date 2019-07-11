@@ -2,6 +2,7 @@ package com.erhan.springbootcrud.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -91,6 +92,18 @@ public class StaffServiceTest {
 		verify(staffDAO, times(1)).delete(staff);
 		
 		logger.info("testDelete is successful.");
+	}
+	
+	@Test
+	public void testUpdate() {
+		logger.info("testUpdate is started.");
+		Staff staff = new Staff("Ahmet", "ÇALIŞKAN", "3842883726", "", new Date());
+		staff.setId(Short.valueOf("1"));
+		StaffServiceImpl staffServiceImplMock = mock(StaffServiceImpl.class);
+		staffServiceImplMock.update(staff);
+		verify(staffServiceImplMock, times(1)).update(staff);
+		
+		logger.info("testUpdate is successful.");
 	}
 	
 	@Test

@@ -39,6 +39,11 @@ public class StaffServiceImpl implements StaffService {
 	}
 	
 	@Override
+	public void update(Staff staff) {
+		staffDAO.save(staff);
+	}
+	
+	@Override
 	public List<Staff> findByFirstName(String firstName) {
 		return staffDAO.findByFirstName(firstName);
 	}
@@ -62,5 +67,4 @@ public class StaffServiceImpl implements StaffService {
 	public List<Staff> findByCreateDate(Date createDate) {
 		return staffDAO.findByCreateDate(createDate);
 	}
-	
 }

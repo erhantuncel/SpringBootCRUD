@@ -11,6 +11,7 @@ public interface StaffService {
 	public List<Staff> findAll();
 	public Staff findById(Short id);
 	public void delete(Staff staff);
+	public void update(Staff staff);
 	public List<Staff> findByFirstName(String firstName);
 	public List<Staff> findByLastName(String lastName);
 	public List<Staff> findByPhone(String phone);
