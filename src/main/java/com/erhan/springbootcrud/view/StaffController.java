@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,6 +60,24 @@ public class StaffController {
 		Staff staffToUpdate = staffService.findById(id);
 		model.addObject("staffToUpdate", staffToUpdate);
 		model.setViewName("/updateStaff");
+		return model;
+	}
+	
+	@RequestMapping(value = "/updateStaff", method = RequestMethod.POST)
+	public ModelAndView processShowStaffUpdateForm(@Valid @ModelAttribute("staffToUpdate") Staff staff, BindingResult result, 
+													ModelAndView model, RedirectAttributes redir) {
+		if(result.hasErrors()) {
+			List<ObjectError> allErrors = result.getAllErrors();
+			for(ObjectError error : allErrors) {
+				logger.warn(error.toString());
+			}
+		} else {
+			staffService.update(staff);
+			String msg = "Personel (" + staff.getFirstName() + " " + staff.getLastName() + ") güncellendi.";
+			redir.addFlashAttribute("warningType", "info");
+			redir.addFlashAttribute("msg", msg);
+			model.setViewName("redirect:" + "/");
+		}
 		return model;
 	}
 }

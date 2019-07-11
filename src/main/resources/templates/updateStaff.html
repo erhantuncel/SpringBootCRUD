@@ -1,0 +1,77 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	class="h-100">
+<head th:include="fragments/headFragment :: head"></head>
+<body class="d-flex flex-column h-100">
+	<header th:replace="fragments/topMenuFragment :: topMenu"></header>
+	
+	<!-- Begin page content -->
+	<main role="main" class="flex-shrink-0">
+	  <div class="container">
+	    
+	    <div class="mt-4 mb-2 row justify-content-between">
+	    	<div class="col-sm-6 text-left">
+	    		<h4>Personel Bilgi Güncelleme</h4>
+	    	</div>
+	    	<div class="col-sm-3 text-right">
+	    	</div>
+	    </div>
+	    <form action="#" th:object="${staffToUpdate}" th:action="@{/updateStaff}" method="post">
+	    		<div class="form-row">
+	    			<div class="col-md-1 mb-3">
+		    			<label class="col-form-label">No</label>
+		    		</div>
+		    		<div class="col-md-11 mb-3">
+		    			<input type="text" readonly class="form-control-plaintext" id="staffId"
+	    						th:field="*{id}" th:value="${staffToUpdate.id}">
+		    		</div>
+	    		</div>
+		    	<div class="form-row">
+		    		<div class="col-md-6 mb-3">
+		    			<label for="firstName">Ad</label>
+		    			<input type="text" class="form-control" id="firstName" placeholder="Ad" 
+		    				th:field="*{firstName}" th:errorclass="is-invalid" readonly>
+		    			<div class="invalid-feedback" th:errors="*{firstName}">
+        					Ad boş olmamalı
+      					</div>
+		    		</div>
+		    		<div class="col-md-6 mb-3">
+		    			<label for="lastName">Soyad</label>
+		    			<input type="text" class="form-control" id="lastName" placeholder="Soyad" 
+		    				th:field="*{lastName}" th:errorclass="is-invalid" readonly>
+		    			<div class="invalid-feedback" th:errors="*{lastName}">
+        					Soyad boş olmamalı
+      					</div>
+		    		</div>
+		    	</div>
+		    	<div class="form-row">
+		    		<div class="col-md-6 mb-3">
+		    			<label for="phone">Telefon</label>
+		    			<input type="text" class="form-control" id="phone" placeholder="Telefon" 
+		    				th:field="*{phone}" th:errorclass="is-invalid">
+		    			<div class="invalid-feedback" th:errors="*{phone}">
+        					Telefon boş olmamalı
+      					</div>
+		    		</div>
+		    		<div class="col-md-6 mb-3">
+		    			<label for="email">E-mail</label>
+		    			<input type="text" class="form-control" id="email" placeholder="E-mail" 
+		    				th:field="*{email}" th:errorclass="is-invalid">
+		    			<div class="invalid-feedback" th:errors="*{email}">
+        					Geçerli bir e-mail adresi girilmeli.
+      					</div>
+		    		</div>
+		    	</div>
+		    	<button class="btn btn-dark" type="submit">Güncelle</button>
+		    	<button class="btn btn-danger" type="submit">Vazgeç</button>
+		    </form>
+	    
+	  </div>
+	</main>
+	
+	<footer th:replace="fragments/footerFragment :: footer"></footer>
+	
+	<th:block th:include="fragments/scriptsFragment :: scripts" />
+</body>
+</html>
