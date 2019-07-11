@@ -29,7 +29,7 @@ public class StaffController {
 	StaffService staffService;
 	
 	@RequestMapping(value = "/addStaff", method = RequestMethod.GET)
-	public ModelAndView showAddStaffForm(Staff staff, ModelAndView model) {  
+	public ModelAndView showAddStaffForm(Staff staff, ModelAndView model) {
 		model.setViewName("/addStaff");
 		return model;
 	}
@@ -37,7 +37,6 @@ public class StaffController {
 	@RequestMapping(value = "/addStaff", method = RequestMethod.POST)
 	public ModelAndView processAddStaffForm(@Valid Staff staff, BindingResult result, 
 											ModelAndView model, RedirectAttributes redir) {
-		
 		if(result.hasErrors()) {
 			List<ObjectError> allErrors = result.getAllErrors();
 			for(ObjectError error : allErrors) {
@@ -73,6 +72,7 @@ public class StaffController {
 			}
 		} else {
 			staffService.update(staff);
+			logger.info("Staff (" + staff.getFirstName() + " " + staff.getLastName() + ") is updated.");
 			String msg = "Personel (" + staff.getFirstName() + " " + staff.getLastName() + ") güncellendi.";
 			redir.addFlashAttribute("warningType", "info");
 			redir.addFlashAttribute("msg", msg);
@@ -84,6 +84,18 @@ public class StaffController {
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public ModelAndView cancelFormProcess(ModelAndView model) {
 		model.setViewName("/");
+		return model;
+	}
+	
+	@RequestMapping(value = "/deleteStaff/{id}", method = RequestMethod.GET)
+	public ModelAndView deleteStaff(@PathVariable("id") String id, ModelAndView model, RedirectAttributes redir) {
+		Staff staffToDelete = staffService.findById(Short.valueOf(id));
+		staffService.delete(staffToDelete);
+		logger.info("Staff(" + staffToDelete.getFirstName() + " " + staffToDelete.getLastName() + ") is deleted.");
+		String msg = "Personel(" + staffToDelete.getFirstName() + " " + staffToDelete.getLastName() + ") silindi.";
+		redir.addFlashAttribute("warningType", "info");
+		redir.addFlashAttribute("msg", msg);
+		model.setViewName("redirect:" + "/");
 		return model;
 	}
 }

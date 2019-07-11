@@ -55,18 +55,54 @@
 		    			<td th:text="${#dates.format(staff.createDate, 'dd.MM.yyy HH:mm:ss')}"></td>
 		    			<td>
 		    				<a role="button" class="btn btn-outline-dark" href="#" th:href="@{/updateStaff/{id}(id=${staff.id})}">Güncelle</a>
-		    				<button type="button" class="btn btn-outline-dark">Sil</button>
+		    				<a role="button" class="btn btn-outline-dark btnDeleteStaff" href="#"
+		    					th:attr="data-id=${staff.id},data-firstname=${staff.firstName},data-lastname=${staff.lastName}">Sil</a>
 		    			</td>
 		    		</tr>
 		    	</tbody>
 		    </table>
 	    </div>
 	  </div>
+	  
+	  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="deleteConfirmModalLabel">Onay</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p id="warningMessage"></p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hayır</button>
+		        <a id="deleteButton" href="#" role="button" class="btn btn-danger">Evet</a>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</main>
 	
 	<footer th:replace="fragments/footerFragment :: footer"></footer>
 	
 	<th:block th:include="fragments/scriptsFragment :: scripts" />
-		
+	
+	<script th:inline="javascript">
+		$('.btnDeleteStaff').click(function(e) {
+			e.preventDefault();
+			var staffId = $(this).data("id");
+			var firstName = $(this).data("firstname");
+			var lastName = $(this).data("lastname");
+			var staffName = "" + staffId + "-" + firstName + " " + lastName;
+			$("#warningMessage").html("<b>" + staffName + "</b> ile ilgili bilgileri veritabanından silmek istiyor musunuz?")
+			var baseUrl = /*[[@{/}]]*/ '';
+			var pageUrl = 'deleteStaff/' + staffId;
+			var deleteUrl = baseUrl+ pageUrl;
+			$("#deleteButton").attr('href', deleteUrl)
+			$("#deleteConfirmModal").modal("show");
+		});
+	</script>
 </body>
 </html>
