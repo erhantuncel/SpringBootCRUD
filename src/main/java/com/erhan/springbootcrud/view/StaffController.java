@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +51,14 @@ public class StaffController {
 			redir.addFlashAttribute("msg", msg);
 			model.setViewName("redirect:" + "/");
 		}
+		return model;
+	}
+	
+	@RequestMapping(value = "/updateStaff/{id}", method = RequestMethod.GET)
+	public ModelAndView showUpdateStaffForm(@PathVariable("id") Short id, ModelAndView model) {
+		Staff staffToUpdate = staffService.findById(id);
+		model.addObject("staffToUpdate", staffToUpdate);
+		model.setViewName("/updateStaff");
 		return model;
 	}
 }
