@@ -80,4 +80,10 @@ public class StaffController {
 		}
 		return model;
 	}
+	
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancelFormProcess(ModelAndView model) {
+		model.setViewName("/");
+		return model;
+	}
 }
