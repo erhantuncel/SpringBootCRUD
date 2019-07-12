@@ -2,6 +2,8 @@ package com.erhan.springbootcrud.view;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,14 +45,19 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView processSearchStaffForm(@ModelAttribute("searchForm") SearchForm searchForm, 
+	public ModelAndView processSearchStaffForm(@Valid @ModelAttribute("searchForm") SearchForm searchForm, 
 										BindingResult result, ModelAndView model) {
+		String title = "Personel Bilgi Sistemi - Personel Listesi";
+		model.addObject("title", title);
+		model.addObject("searchTypes", SearchType.values());
+		model.setViewName("index");
+		List<Staff> staffList = null;
 		if(result.hasErrors()) {
 			for(ObjectError error : result.getAllErrors()) {
 				logger.warn(error.toString());
 			}
+			staffList = staffService.findAll();
 		} else {
-			List<Staff> staffList = null;
 			switch (searchForm.getSearchType()) {
 				case BY_FIRST_NAME:
 					staffList = staffService.findByFirstName(searchForm.getKeyword());
@@ -69,13 +75,9 @@ public class HomeController {
 			if(staffList.size() <= 0) {
 				staffList = null;
 			}
-			model.addObject("staffList", staffList);
 			model.addObject("searchForm", new SearchForm());
-			model.addObject("searchTypes", SearchType.values());
-			String title = "Personel Bilgi Sistemi - Personel Listesi";
-			model.addObject("title", title);
-			model.setViewName("index");
 		}
+		model.addObject("staffList", staffList);
 		return model;
-	}
+	}	
 }
