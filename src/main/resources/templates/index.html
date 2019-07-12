@@ -34,14 +34,16 @@
 				 -->
 	    	</div>
 	    	<div class="col-sm-6 text-right">
-    			<form class="form-inline float-sm-right">
-			      	<select class="form-control mr-1" id="exampleFormControlSelect1">
-			      		<option>Ad</option>
-			      		<option>Soyad</option>
-			      		<option>Telefon</option>
-			      		<option>Email</option>
+    			<form class="form-inline float-sm-right" action="#"
+    					th:object="${searchForm}" th:action="@{/search}" th:method="post">
+			      	<select class="form-control mr-1" id="exampleFormControlSelect1"
+			      		th:field="*{searchType}">
+			      		<option th:each="searchType : ${searchTypes}" 
+			      				th:text="${searchType.displayName}"
+			      				th:value="${searchType}">
 				    </select>
-			        <input class="form-control mr-sm-1" type="text" placeholder="Ara" aria-label="Search">
+			        <input class="form-control mr-sm-1" type="text" placeholder="Ara" aria-label="Search"
+			        		th:field="*{keyword}">
 			        <button class="btn btn-dark my-2 my-sm-0" type="submit">Ara</button>
 				</form>  
 	    	</div>
