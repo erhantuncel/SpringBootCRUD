@@ -21,46 +21,66 @@
 		    	</div>
 	    	</div>
 	    </div>
-	    <div class="mt-3 mb-2 row justify-content-between">
-	    	<div class="col-sm-3 text-left">
+	    <div class="row mt-3 mb-2" th:hidden="true">
+	    	<div class="col-sm-12">
 	    		<h4>Personel Listesi</h4>
 	    	</div>
-	    	<div class="col-sm-3 text-right">
-	    		<a class="btn btn-dark" role="button" href="/addStaff" th:href="@{/addStaff}">Personel Ekle</a>
+	    </div> 
+	    <div class="row mt-3 mb-2 justify-content-between">
+	    	<div class="col-sm-3 text-left">
+	    		<h4>Personel Listesi</h4>
+	    		<!-- 
+				<a class="btn btn-dark" role="button" href="/addStaff" th:href="@{/addStaff}">Personel Ekle</a>
+				 -->
+	    	</div>
+	    	<div class="col-sm-6 text-right">
+    			<form class="form-inline float-sm-right">
+			      	<select class="form-control mr-1" id="exampleFormControlSelect1">
+			      		<option>Ad</option>
+			      		<option>Soyad</option>
+			      		<option>Telefon</option>
+			      		<option>Email</option>
+				    </select>
+			        <input class="form-control mr-sm-1" type="text" placeholder="Ara" aria-label="Search">
+			        <button class="btn btn-dark my-2 my-sm-0" type="submit">Ara</button>
+				</form>  
 	    	</div>
 	    </div>
-	    <div class="row">	
-		    <table class="table">
-		    	<thead class="thead-dark">
-		    		<tr>
-		    			<th scope="col">No</th>
-			    		<th scope="col">Ad</th>
-			    		<th scope="col">Soyad</th>
-			    		<th scope="col">Telefon</th>
-			    		<th scope="col">E-mail</th>
-			    		<th scope="col">Kayıt Zamanı</th>
-			    		<th scope="col" style="width: 165px;">İşlemler</th>
-		    		</tr>
-		    	</thead> 
-		    	<tbody>
-		    		<tr th:if="${staffList == null}">
-		    			<td colspan="5">Personel Bulunamadı</td>
-		    		</tr>
-		    		<tr th:each="staff : ${staffList}">
-		    			<th scope="row" th:text="${staff.id}"></th>
-		    			<td th:text="${staff.firstName}"></td>
-		    			<td th:text="${staff.lastName}"></td>
-		    			<td th:text="${staff.phone}"></td>
-		    			<td th:text="${staff.email}"></td>
-		    			<td th:text="${#dates.format(staff.createDate, 'dd.MM.yyy HH:mm:ss')}"></td>
-		    			<td>
-		    				<a role="button" class="btn btn-outline-dark" href="#" th:href="@{/updateStaff/{id}(id=${staff.id})}">Güncelle</a>
-		    				<a role="button" class="btn btn-outline-dark btnDeleteStaff" href="#"
-		    					th:attr="data-id=${staff.id},data-firstname=${staff.firstName},data-lastname=${staff.lastName}">Sil</a>
-		    			</td>
-		    		</tr>
-		    	</tbody>
-		    </table>
+	    <div class="row">
+	    	<div class="col-sm-12">
+	    	
+			    <table class="table">
+			    	<thead class="table-dark">
+			    		<tr>
+			    			<th scope="col">No</th>
+				    		<th scope="col">Ad</th>
+				    		<th scope="col">Soyad</th>
+				    		<th scope="col">Telefon</th>
+				    		<th scope="col">E-mail</th>
+				    		<th scope="col">Kayıt Zamanı</th>
+				    		<th scope="col" style="width: 165px;">İşlemler</th>
+			    		</tr>
+			    	</thead> 
+			    	<tbody>
+			    		<tr th:if="${staffList == null}">
+			    			<td colspan="5">Personel Bulunamadı</td>
+			    		</tr>
+			    		<tr th:each="staff : ${staffList}">
+			    			<th scope="row" th:text="${staff.id}"></th>
+			    			<td th:text="${staff.firstName}"></td>
+			    			<td th:text="${staff.lastName}"></td>
+			    			<td th:text="${staff.phone}"></td>
+			    			<td th:text="${staff.email}"></td>
+			    			<td th:text="${#dates.format(staff.createDate, 'dd.MM.yyy HH:mm:ss')}"></td>
+			    			<td>
+			    				<a role="button" class="btn btn-dark" href="#" th:href="@{/updateStaff/{id}(id=${staff.id})}">Güncelle</a>
+			    				<a role="button" class="btn btn-dark btnDeleteStaff" href="#"
+			    					th:attr="data-id=${staff.id},data-firstname=${staff.firstName},data-lastname=${staff.lastName}">Sil</a>
+			    			</td>
+			    		</tr>
+			    	</tbody>
+			    </table>
+	    	</div>	
 	    </div>
 	  </div>
 	  
