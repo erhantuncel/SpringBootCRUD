@@ -6,7 +6,12 @@
 <body>
 	<footer class="footer mt-auto py-3" th:fragment="footer">
 	  <div class="container text-right">
-	    <span class="text-muted"></span>
+	    <span class="text-muted">
+	    	<a href="#" th:href="@{__${#httpServletRequest.requestURI}__?lang=tr}"
+	    		th:text="#{lang.tr}">Türkçe</a>|
+	    	<a href="#" th:href="@{__${#httpServletRequest.requestURI}__?lang=en}"
+	    		th:text="#{lang.en}">İngilizce</a>
+	    </span>
 	  </div>
 	</footer>
 </body>
