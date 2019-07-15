@@ -31,7 +31,7 @@ public class Staff {
 	private String lastName;
 	
 	@NotEmpty
-	@Pattern(regexp="[0-9]{10}", message = "10 haneli ve rakamlardan oluşmalı.")
+	@Pattern(regexp="[0-9]{10}", message = "{validation.phone.size.ten}")
 	@Column(name = "PHONE")
 	private String phone;
 	
