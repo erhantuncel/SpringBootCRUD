@@ -28,7 +28,7 @@
 	    </div> 
 	    <div class="row mt-3 mb-2 justify-content-between">
 	    	<div class="col-sm-3 text-left">
-	    		<h4>Personel Listesi</h4>
+	    		<h4 th:text="#{index.content.title}">Personel Listesi</h4>
 	    		<!-- 
 				<a class="btn btn-dark" role="button" href="/addStaff" th:href="@{/addStaff}">Personel Ekle</a>
 				 -->
@@ -39,12 +39,13 @@
 			      	<select class="form-control mr-1" id="exampleFormControlSelect1"
 			      		th:field="*{searchType}">
 			      		<option th:each="searchType : ${searchTypes}" 
-			      				th:text="${searchType.displayName}"
+			      				th:text="${{searchType}}"
 			      				th:value="${searchType}">
 				    </select>
 			        <input class="form-control mr-sm-1" type="text" placeholder="Ara" aria-label="Search"
-			        		th:field="*{keyword}" th:errorclass="is-invalid">
-			        <button class="btn btn-dark my-2 my-sm-0" type="submit">Ara</button>
+			        		th:field="*{keyword}" th:errorclass="is-invalid" 
+			        		th:placeholder="#{index.content.search.input.placeholder}">
+			        <button class="btn btn-dark my-2 my-sm-0" type="submit" th:text="#{index.content.search.button.text}">Ara</button>
 				</form>  
 	    	</div>
 	    </div>
@@ -54,18 +55,18 @@
 			    <table class="table">
 			    	<thead class="table-dark">
 			    		<tr>
-			    			<th scope="col">No</th>
-				    		<th scope="col">Ad</th>
-				    		<th scope="col">Soyad</th>
-				    		<th scope="col">Telefon</th>
-				    		<th scope="col">E-mail</th>
-				    		<th scope="col">Kayıt Zamanı</th>
-				    		<th scope="col" style="width: 165px;">İşlemler</th>
+			    			<th scope="col" th:text="#{index.content.table.id}">No</th>
+				    		<th scope="col" th:text="#{index.content.table.th.first.name}">Ad</th>
+				    		<th scope="col" th:text="#{index.content.table.th.last.name}">Soyad</th>
+				    		<th scope="col" th:text="#{index.content.table.th.phone}">Telefon</th>
+				    		<th scope="col" th:text="#{index.content.table.th.email}">E-mail</th>
+				    		<th scope="col" th:text="#{index.content.table.th.registered.time}">Kayıt Zamanı</th>
+				    		<th scope="col" style="width: 187px;" th:text="#{index.content.table.th.actions}">İşlemler</th>
 			    		</tr>
 			    	</thead> 
 			    	<tbody>
 			    		<tr th:if="${staffList == null}">
-			    			<td colspan="5">Personel Bulunamadı</td>
+			    			<td colspan="5" th:text="#{index.content.table.notfoundstaff}">Personel Bulunamadı</td>
 			    		</tr>
 			    		<tr th:each="staff : ${staffList}">
 			    			<th scope="row" th:text="${staff.id}"></th>
@@ -75,9 +76,12 @@
 			    			<td th:text="${staff.email}"></td>
 			    			<td th:text="${#dates.format(staff.createDate, 'dd.MM.yyy HH:mm:ss')}"></td>
 			    			<td>
-			    				<a role="button" class="btn btn-dark" href="#" th:href="@{/updateStaff/{id}(id=${staff.id})}">Güncelle</a>
+			    				<a role="button" class="btn btn-dark" href="#" 
+			    					th:href="@{/updateStaff/{id}(id=${staff.id})}"
+			    					th:text="#{index.content.table.actions.btn.update}">Güncelle</a>
 			    				<a role="button" class="btn btn-dark btnDeleteStaff" href="#"
-			    					th:attr="data-id=${staff.id},data-firstname=${staff.firstName},data-lastname=${staff.lastName}">Sil</a>
+			    					th:attr="data-id=${staff.id},data-firstname=${staff.firstName},data-lastname=${staff.lastName}"
+			    					th:text="#{index.content.table.actions.btn.delete}">Sil</a>
 			    			</td>
 			    		</tr>
 			    	</tbody>
@@ -90,17 +94,19 @@
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="deleteConfirmModalLabel">Onay</h5>
+		        <h5 class="modal-title" id="deleteConfirmModalLabel" th:text="#{index.content.table.deleteModal.title.label}">Onay</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        <p id="warningMessage"></p>
+		        <p id="warningMessage"><span th:utext="#{index.content.table.deleteModal.message}"></span></p>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hayır</button>
-		        <a id="deleteButton" href="#" role="button" class="btn btn-danger">Evet</a>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+		        		th:text="#{index.content.table.deleteModal.btn.No}">Hayır</button>
+		        <a id="deleteButton" href="#" role="button" class="btn btn-danger"
+		        	th:text="#{index.content.table.deleteModal.btn.Yes}">Evet</a>
 		      </div>
 		    </div>
 		  </div>
@@ -118,7 +124,10 @@
 			var firstName = $(this).data("firstname");
 			var lastName = $(this).data("lastname");
 			var staffName = "" + staffId + "-" + firstName + " " + lastName;
-			$("#warningMessage").html("<b>" + staffName + "</b> ile ilgili bilgileri veritabanından silmek istiyor musunuz?")
+			$("#staffFirstName").html(staffName);
+			var warningMessage = [[#{index.content.table.deleteModal.message(#{staffName})}]];
+			// $("#warningMessage").html("<b>" + staffName + "</b> ile ilgili bilgileri veritabanından silmek istiyor musunuz?")
+			// $("#warningMessage").html(warningMessage);
 			var baseUrl = /*[[@{/}]]*/ '';
 			var pageUrl = 'deleteStaff/' + staffId;
 			var deleteUrl = baseUrl+ pageUrl;
