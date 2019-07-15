@@ -12,7 +12,7 @@
 	    
 	    <div class="mt-4 mb-2 row justify-content-between">
 	    	<div class="col-sm-6 text-left">
-	    		<h4>Personel Bilgi Güncelleme</h4>
+	    		<h4 th:text="#{updateStaff.content.title}">Personel Bilgi Güncelleme</h4>
 	    	</div>
 	    	<div class="col-sm-3 text-right">
 	    	</div>
@@ -20,7 +20,7 @@
 	    <form action="#" th:object="${staffToUpdate}" th:action="@{/updateStaff}" method="post">
 	    		<div class="form-row">
 	    			<div class="col-md-1 mb-3">
-		    			<label class="col-form-label">No</label>
+		    			<label class="col-form-label" th:text="#{updateStaff.content.input.label.id}">No</label>
 		    		</div>
 		    		<div class="col-md-11 mb-3">
 		    			<input type="text" readonly class="form-control-plaintext" id="staffId"
@@ -29,17 +29,19 @@
 	    		</div>
 		    	<div class="form-row">
 		    		<div class="col-md-6 mb-3">
-		    			<label for="firstName">Ad</label>
+		    			<label for="firstName" th:text="#{updateStaff.content.input.label.firstName}">Ad</label>
 		    			<input type="text" class="form-control" id="firstName" placeholder="Ad" 
-		    				th:field="*{firstName}" th:errorclass="is-invalid" readonly>
+		    					th:placeholder="#{updateStaff.content.input.label.firstName}"
+		    					th:field="*{firstName}" th:errorclass="is-invalid" readonly>
 		    			<div class="invalid-feedback" th:errors="*{firstName}">
         					Ad boş olmamalı
       					</div>
 		    		</div>
 		    		<div class="col-md-6 mb-3">
-		    			<label for="lastName">Soyad</label>
+		    			<label for="lastName" th:text="#{updateStaff.content.input.label.lastName}">Soyad</label>
 		    			<input type="text" class="form-control" id="lastName" placeholder="Soyad" 
-		    				th:field="*{lastName}" th:errorclass="is-invalid" readonly>
+		    					th:placeholder="#{updateStaff.content.input.label.lastName}"
+		    					th:field="*{lastName}" th:errorclass="is-invalid" readonly>
 		    			<div class="invalid-feedback" th:errors="*{lastName}">
         					Soyad boş olmamalı
       					</div>
@@ -47,24 +49,27 @@
 		    	</div>
 		    	<div class="form-row">
 		    		<div class="col-md-6 mb-3">
-		    			<label for="phone">Telefon</label>
+		    			<label for="phone" th:text="#{updateStaff.content.input.label.phone}">Telefon</label>
 		    			<input type="text" class="form-control" id="phone" placeholder="Telefon" 
-		    				th:field="*{phone}" th:errorclass="is-invalid">
+		    					th:placeholder="#{updateStaff.content.input.label.phone}"
+		    					th:field="*{phone}" th:errorclass="is-invalid">
 		    			<div class="invalid-feedback" th:errors="*{phone}">
         					Telefon boş olmamalı
       					</div>
 		    		</div>
 		    		<div class="col-md-6 mb-3">
-		    			<label for="email">E-mail</label>
-		    			<input type="text" class="form-control" id="email" placeholder="E-mail" 
-		    				th:field="*{email}" th:errorclass="is-invalid">
+		    			<label for="email" th:text="#{updateStaff.content.input.label.email}">E-mail</label>
+		    			<input type="text" class="form-control" id="email" placeholder="E-mail"
+		    					th:placeholder="#{updateStaff.content.input.label.email}" 
+		    					th:field="*{email}" th:errorclass="is-invalid">
 		    			<div class="invalid-feedback" th:errors="*{email}">
         					Geçerli bir e-mail adresi girilmeli.
       					</div>
 		    		</div>
 		    	</div>
-		    	<button class="btn btn-dark" type="submit">Güncelle</button>
-		    	<a role="button" class="btn btn-danger" href="#" th:href="@{/}">Vazgeç</a>
+		    	<button class="btn btn-dark" type="submit" th:text="#{updateStaff.content.btn.updateStaff}">Güncelle</button>
+		    	<a role="button" class="btn btn-danger" href="#" th:href="@{/}"
+		    			th:text="#{updateStaff.content.btn.cancel}">Vazgeç</a>
 		    </form>
 	    
 	  </div>
