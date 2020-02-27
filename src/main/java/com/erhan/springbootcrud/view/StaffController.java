@@ -41,7 +41,7 @@ public class StaffController {
 	
 	@RequestMapping(value = "/addStaff", method = RequestMethod.GET)
 	public ModelAndView showAddStaffForm(Staff staff, ModelAndView model) {
-		model.setViewName("/addStaff");
+		model.setViewName("addStaff");
 		return model;
 	}
 
@@ -53,7 +53,7 @@ public class StaffController {
 			for(ObjectError error : allErrors) {
 				logger.warn(error.toString());
 			}
-			model.setViewName("/addStaff");
+			model.setViewName("addStaff");
 		} else {
 			staffService.create(staff);
 			logger.info("Staff (" + staff.getFirstName() + " " + staff.getLastName() + ") is added successfully.");
@@ -69,7 +69,7 @@ public class StaffController {
 	public ModelAndView showUpdateStaffForm(@PathVariable("id") Short id, ModelAndView model) {
 		Staff staffToUpdate = staffService.findById(id);
 		model.addObject("staffToUpdate", staffToUpdate);
-		model.setViewName("/updateStaff");
+		model.setViewName("updateStaff");
 		return model;
 	}
 	
