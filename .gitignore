@@ -40,6 +40,6 @@ hs_err_pid*
 # SQL Files
 # *.sql
 
-$ VsCode files
+# VsCode files
 *.vscode*
 
