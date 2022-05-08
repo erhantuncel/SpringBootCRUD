@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  mysql:
+    restart: always
+    image: mysql:8.0.16
+    container_name: mysql-8-0-16
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: testpass
+      MYSQL_DATABASE: staffs
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ./docker/mysql-volume:/var/lib/mysql
+  backend:
+    restart: always
+    depends_on:
+      - mysql
+    build: .
+    container_name: spring-boot-backend
+    ports:
+      - 8080:8080
+volumes:
+  mysql-volume:

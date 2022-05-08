@@ -11,6 +11,14 @@ target/*
 .classpath
 .project
 
+# IDEA
+.idea
+
+# Only Local
+zOnlyLocal
+docker
+
+
 # Log file
 *.log
 
